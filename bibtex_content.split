@@ -1,0 +1,20 @@
+def extract_journal_names(bibtex_content):
+    lines = bibtex_content.split('\n')
+    journal_names = set()
+
+    for line in lines:
+        if line.strip().startswith('journal = {'):
+            journal_name = line.strip()[11:-1].strip()
+            journal_names.add(journal_name)
+
+    return journal_names
+
+if __name__ == "__main__":
+    bibtex_file_url = "URL_TO_RAW_BIBTEX_FILE"
+    with open("path_to_local_copy_of_bibtex.bib", 'r') as file:
+        bibtex_content = file.read()
+
+    journal_names = extract_journal_names(bibtex_content)
+
+    with open("journal_names.txt", 'w') as output_file:
+        output_file.write('\n'.join(journal_names))
